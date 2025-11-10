@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouAndMeAtHeart | Community Center for Togetherness</title>
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
+    <link rel="icon" type="image/x-icon" href="images/favicon-no_bg.png">
     <style>
         /* CSS Reset and Base Styles */
         * {
@@ -18,6 +18,7 @@
             --secondary: #f1faee;
             --accent: #a8dadc;
             --dark: #1d3557;
+            --dark2: #305e9e;
             --light: #f1faee;
             --transition: all 0.3s ease;
         }
@@ -82,7 +83,7 @@
             padding: 5rem 0;
         }
 
-        /* Header */
+        /* Header - Separate Logo Control */
         header {
             background-color: white;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -99,23 +100,69 @@
             padding: 1rem 0;
         }
 
-        .logo {
+        /* Header Logo Container */
+        .header-logo {
             display: flex;
             align-items: center;
             gap: 10px;
+            position: relative;
+            overflow: hidden;
+            width: 220px; /* Header specific width */
+            height: 60px; /* Header specific height */
+            justify-content: flex-start;
         }
 
-        .logo-icon {
-            color: var(--primary);
-            font-size: 1.8rem;
+        /* Header Logo Image */
+        .header-logo-icon {
+            width: 300%;
+            height: 300%;
+            display: block;
+            object-fit: contain;
+            object-position: left center; /* Align left for header */
         }
 
-        .logo-text {
-            font-size: 1.5rem;
+        /* Header Logo Text Fallback */
+        .header-logo-text {
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--dark);
+            position: absolute;
+            left: -10000px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
         }
 
+        /* Header Fallback Styles */
+        .header-logo:has(.header-logo-icon[src=""]) .header-logo-text,
+        .header-logo:has(.header-logo-icon:not([src])) .header-logo-text {
+            position: static;
+            width: auto;
+            height: auto;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .header-logo-icon[src=""],
+        .header-logo-icon:not([src]) {
+            display: none;
+        }
+
+        .header-logo-icon[src=""] + .header-logo-text,
+        .header-logo-icon:not([src]) + .header-logo-text {
+            position: static;
+            width: auto;
+            height: auto;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* Navigation */
         .nav-menu {
             display: flex;
             list-style: none;
@@ -149,6 +196,84 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--dark);
+        }
+
+        /* Footer - Separate Logo Control */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Footer Logo Container */
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            width: 280px; /* Footer specific width */
+            height: 120px; /* Footer specific height */
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Footer Logo Image */
+        .footer-logo-icon {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            object-position: center center; /* Center for footer */
+        }
+
+        /* Footer Logo Text Fallback */
+        .footer-logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            position: absolute;
+            left: -10000px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        /* Footer Fallback Styles */
+        .footer-logo:has(.footer-logo-icon[src=""]) .footer-logo-text,
+        .footer-logo:has(.footer-logo-icon:not([src])) .footer-logo-text {
+            position: static;
+            width: auto;
+            height: auto;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo-icon[src=""],
+        .footer-logo-icon:not([src]) {
+            display: none;
+        }
+
+        .footer-logo-icon[src=""] + .footer-logo-text,
+        .footer-logo-icon:not([src]) + .footer-logo-text {
+            position: static;
+            width: auto;
+            height: auto;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Hero Section */
@@ -370,20 +495,7 @@
             resize: vertical;
         }
 
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
+        /* Footer Additional Elements */
         .social-links {
             display: flex;
             justify-content: center;
@@ -415,13 +527,6 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        /* Decorative Elements */
-        .leaf-decoration {
-            position: absolute;
-            opacity: 0.1;
-            z-index: -1;
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             h1 {
@@ -430,6 +535,26 @@
 
             h2 {
                 font-size: 1.8rem;
+            }
+
+            /* Mobile Header Logo */
+            .header-logo {
+                width: 180px;
+                height: 50px;
+            }
+
+            .header-logo-text {
+                font-size: 1.2rem;
+            }
+
+            /* Mobile Footer Logo */
+            .footer-logo {
+                width: 220px;
+                height: 90px;
+            }
+
+            .footer-logo-text {
+                font-size: 1.5rem;
             }
 
             .hero {
@@ -471,15 +596,28 @@
                 margin-left: 0;
             }
         }
+
+        /* Extra Small Devices */
+        @media (max-width: 480px) {
+            .header-logo {
+                width: 150px;
+                height: 45px;
+            }
+
+            .footer-logo {
+                width: 200px;
+                height: 80px;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header>
         <div class="container header-container">
-            <div class="logo">
-                <div class="logo-icon">❤️</div>
-                <div class="logo-text">YouAndMeAtHeart</div>
+            <div class="header-logo">
+                <img src="images/long_logo-no_bg.png" alt="YouAndMeAtHeart" class="header-logo-icon">
+                <div class="header-logo-text" aria-hidden="true">YouAndMeAtHeart</div>
             </div>
             <button class="mobile-toggle" id="mobileToggle">☰</button>
             <ul class="nav-menu" id="navMenu">
@@ -638,7 +776,7 @@
                         <div class="contact-icon">📍</div>
                         <div>
                             <h4>Location</h4>
-                            <p>Community Center, [Your Location], Uganda</p>
+                            <p>Community Center, Naalya, Uganda</p>
                         </div>
                     </div>
                     
@@ -646,7 +784,7 @@
                         <div class="contact-icon">📞</div>
                         <div>
                             <h4>Phone</h4>
-                            <p>+256 XXX XXX XXX</p>
+                            <p>+256 726 611 375</p>
                         </div>
                     </div>
                     
@@ -690,9 +828,9 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="logo">
-                    <div class="logo-icon">❤️</div>
-                    <div class="logo-text">YouAndMeAtHeart</div>
+                <div class="footer-logo">
+                    <img src="images/short_logo_no_bg.png" alt="YouAndMeAtHeart" class="footer-logo-icon">
+                    <div class="footer-logo-text" aria-hidden="true">YouAndMeAtHeart</div>
                 </div>
                 <p>Creating a safe space for connection, growth, and hope in our community.</p>
                 
@@ -761,6 +899,36 @@
             } else {
                 header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
             }
+        });
+
+        // Logo error handling for older browsers
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoImages = document.querySelectorAll('.logo-icon');
+            
+            logoImages.forEach(img => {
+                // Check if image loaded successfully
+                if (img.complete && img.naturalHeight === 0) {
+                    // Image failed to load - show text fallback
+                    const logoText = img.nextElementSibling;
+                    if (logoText && logoText.classList.contains('logo-text')) {
+                        logoText.style.position = 'static';
+                        logoText.style.width = 'auto';
+                        logoText.style.height = 'auto';
+                        logoText.style.overflow = 'visible';
+                    }
+                }
+                
+                // Add error event listener for future failures
+                img.addEventListener('error', function() {
+                    const logoText = this.nextElementSibling;
+                    if (logoText && logoText.classList.contains('logo-text')) {
+                        logoText.style.position = 'static';
+                        logoText.style.width = 'auto';
+                        logoText.style.height = 'auto';
+                        logoText.style.overflow = 'visible';
+                    }
+                });
+            });
         });
     </script>
 </body>
